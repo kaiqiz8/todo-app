@@ -1,57 +1,31 @@
 import { useState } from 'react';
 import './Counter.css'
-import { getByLabelText } from '@testing-library/react';
+// import { getByLabelText } from '@testing-library/react';
 import {PropTypes} from 'prop-types';
-export default function Counter({by}) {
+import './Counter.css';
+import CounterButton from './CounterButton';
 
-    // const buttonStyle = {
-    //     fontSize:"16px",
-    //     backgroundColor: "#00a5ab",
-    //     width: "100px",
-    //     margin: "10px",
-    //     color: "white",
-    //     padding: "15px",
-    //     borderRadius: "30px"};
+export default function Counter() {
 
     const [count, setCount] = useState(0);
-    console.log(by);
-
-    function incrementCounterFunction() {
+    function incrementCounterParentFunction(by){
         setCount(count + by);
-        console.log(count);
-        console.log('increment clicked');
-    };
-
-    function decrementCounterFunction() {
-        setCount(count - by);
-        console.log(count);
-        console.log('decrement clicked');
     }
+    function decrementCounterParentFunction(by){
+        setCount(count - by);
+    }
+    function resetCounter(){
+        setCount(0);
+    }
+
     return (
-        <div className="counter">
-            <span className="count">{count}</span>
-            <div>
-                <button className="counterButton" 
-                        onClick={incrementCounterFunction}
-                        // style={buttonStyle}
-                > + {by}</button>
-                <button className="counterButton" 
-                        onClick={decrementCounterFunction}
-                        // style={buttonStyle}
-                > - {by}</button>
-            </div>
-
-            
-        
-        </div>
+        <>
+            <span className="totalCount">{count}</span>
+            <CounterButton by={1} incrementMethod = {incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+            <CounterButton by={2} incrementMethod = {incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+            <CounterButton by={5} incrementMethod = {incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+            <button className='resetButton' onClick={resetCounter}>Rest</button>
+        </>
     )
-     
 }
 
-Counter.propTypes = {
-    by: PropTypes.number
-}
-
-Counter.defaultProps = {
-    by: 5
-}
