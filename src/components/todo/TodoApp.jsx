@@ -5,17 +5,20 @@ import {BrowserRouter, Routes, Route, useNavigate, useParams, Link} from 'react-
 export default function TodoApp() {
     return (
         <div className="TodoApp">
+            <HeaderComponent />
+
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<LoginComponent />} />
                     <Route path='/login' element={<LoginComponent />}/>
                     <Route path='/welcome/:username' element={<WelcomeComponent />} />
                     <Route path='/todos' element={<ListTodoComponent />} />
+                    <Route path='/logout' element={<LogoutComponent />} />
                     <Route path='*' element={<ErrorComponent />} />
                 </Routes>
             </BrowserRouter>
-            {/* <LoginComponent /> */}
-            {/* <WelcomeComponent /> */}
+
+            <FooterComponent/>
         </div>
     )
 }
@@ -108,10 +111,10 @@ function ListTodoComponent() {
         {id: 3, description: 'Learn DevOps', done: false, targetDate: targetDate}];
 
     return (
-        <div className="ListTodoComponent">
+        <div className="container">
             <h1>Things you want to do: </h1>
             <div>
-                <table>
+                <table className='table'>
                     <thead>
                         <tr>
                             <td>Id</td>
@@ -137,5 +140,28 @@ function ListTodoComponent() {
     )
 }
 
+function HeaderComponent() {
+    return (
+        <div className="header">
+            Header <hr/>
+        </div>
+    )
+}
 
+function FooterComponent() {
+    return (
+        <div className="footer">
+            <hr/> Header 
+        </div>
+    )
+}
 
+function LogoutComponent() {
+    return (
+        <div className="LogoutComponent">
+            <h1>You are logged out!</h1>
+            <div>Thank you for using our APP. Come back soon!</div>
+
+        </div>
+    )
+}
