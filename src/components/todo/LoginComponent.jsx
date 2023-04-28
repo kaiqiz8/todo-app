@@ -1,12 +1,14 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "./security/AuthContext";
 
 function LoginComponent() {
-    const [username, setUsername] =  module.useState('Kaiqi');
-    const [password, setPassword] = module.useState('');
-    const [showSuccessMessage, setShowSuccessMesage] = module.useState(false);
-    const [showErrorMessage, setShowErrorMessage] = module.useState(false);
+    const [username, setUsername] =  useState('Kaiqi');
+    const [password, setPassword] = useState('');
+    // const [showSuccessMessage, setShowSuccessMesage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
     const navigate = useNavigate();
+    const authContext = useAuth();
 
     function handleUsernameChange(event) {
         // console.log(event.target.value);
@@ -17,22 +19,17 @@ function LoginComponent() {
         setPassword(event.target.value);
     }
     function handleSubmit() {
-        if (username==='Kaiqi' && password === 'dummy'){
-            console.log("success");
-            setShowSuccessMesage(true);
-            setShowErrorMessage(false);
-            navigate(`/welcome/${username}`);
+        if (authContext.login(username, password)){
+            navigate(`/welcome/${username}`);       
         } else {
-            console.log("authentication failed");
             setShowErrorMessage(true);
-            setShowSuccessMesage(false);
         }
     }
 
     return (
         <div className="Login"> 
             <h1>Time to login! </h1>
-            {showSuccessMessage && <div className="successMessage">Authenticated successfully</div>}
+            {/* {showSuccessMessage && <div className="successMessage">Authenticated successfully</div>} */}
             {showErrorMessage && <div className="errorMessage">Authenticated failed. 
                                                             Please check your credentials.</div>}
             <div className="LoginForm">
